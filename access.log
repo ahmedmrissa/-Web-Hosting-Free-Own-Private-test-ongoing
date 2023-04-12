@@ -90082,3 +90082,4 @@ GET /products 404 147 - 2.169 ms
 GET /login 404 144 - 2.448 ms
 GET /products 404 147 - 2.809 ms
 GET /products 404 147 - 4.062 ms
+GET /products 404 147 - 18.391 ms
