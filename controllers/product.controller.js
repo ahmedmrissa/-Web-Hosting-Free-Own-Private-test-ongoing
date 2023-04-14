@@ -12,6 +12,7 @@ const {
     uploadBytes,
     listAll,
     deleteObject,
+    getDownloadURL
 } = require("firebase/storage");
 const storage = require("../middlewares/firebase");
 
@@ -84,7 +85,8 @@ router.put('/upload/:id', async (req, res, next) => {
             await uploadBytes(imageRef, upLoadedPhoto.buffer, metatype)
 
 
-            const photoUrl = storageRef.getDownloadURL()
+            let photoUrl = await firebase.storage().ref('uploads/' + path).getDownloadURL();
+
 
 
 
