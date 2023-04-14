@@ -89,9 +89,10 @@ router.put('/upload/:id', async (req, res, next) => {
             .then(snapshot => {
                 console.log(`File: ${fileName} uploaded successfully.`);
                  const rt=snapshot.metadata.fullPath;      
+                 photoUrl=getDownloadURL(rt)
             })
 
-photoUrl=getDownloadURL(rt)
+
 console.log(photoUrl)            
 
 
