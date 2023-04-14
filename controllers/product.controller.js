@@ -86,7 +86,7 @@ router.put('/upload/:id', async (req, res, next) => {
                 
             const metatype = { contentType: upLoadedPhoto.mimetype, name: upLoadedPhoto.filename };
             const snapshot = await uploadBytes(imageRef, upLoadedPhoto.buffer, metatype)
-            photoUrl=snapshot.ref.getDownloadURL();
+            photoUrl=snapshot.getDownloadURL();
 
             console.log(photoUrl)
 
