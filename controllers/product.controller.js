@@ -85,7 +85,7 @@ router.put('/upload/:id', async (req, res, next) => {
             await uploadBytes(imageRef, upLoadedPhoto.buffer, metatype)
 
 
-            let photoUrl = await storage().ref('uploads/' + path).getDownloadURL();
+            let photoUrl = await storageRef.ref('uploads/' + path).getDownloadURL();
 
 
 
