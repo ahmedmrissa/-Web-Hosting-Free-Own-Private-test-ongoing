@@ -85,16 +85,11 @@ router.put('/upload/:id', async (req, res, next) => {
                 
                 
             const metatype = { contentType: upLoadedPhoto.mimetype, name: upLoadedPhoto.filename };
-            const snapshot = await uploadBytes(imageRef, upLoadedPhoto.buffer, metatype)
-            photoUrl=getDownloadURL(snapshot.ref).then((downloadURL) => {
-               return downloadURL
-               });
-            
-
-         
+           const snapshot= await uploadBytes(imageRef, upLoadedPhoto.buffer, metatype)
+           const rt=await getDownloadURL(snapshot.ref)         
 
 
-            const result = await Product.findByIdAndUpdate(req.params.id, { photo_url: photoUrl })
+            const result = await Product.findByIdAndUpdate(req.params.id, { photo_url: rt })
             res.json(result)
         } catch (error) {
             console.log(error)
