@@ -93,7 +93,7 @@ function ProductsPage() {
         className='w-1/2 p-1 m-1 font-mono text-gray-800  text-center rounded-md border-spacing-2 p-2 m-3'
         value={limitChoice}
         onChange={(e) => {
-          console.log(parseInt(e.target.value))
+    
           setLimitChoice(parseInt(e.target.value));
           setLimit(parseInt(e.target.value))
         }
@@ -123,7 +123,9 @@ function ProductsPage() {
         }
         }>
           <option value="Smart Phone" >Smart Phone</option>
+          <option value="Phone" >Phone</option>
           <option value="Tablet" >Tablet</option>
+          <option value="Tablet" >Laptop</option>
       </select>
       </div>
       
