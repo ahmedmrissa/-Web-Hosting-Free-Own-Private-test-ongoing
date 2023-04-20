@@ -10,7 +10,7 @@ import AboutPage from './pages/AboutPage';
 import Login from './components/user/Login';
 import Register from './components/user/Register';
 import Footer from './components/layout/Footer';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -23,6 +23,18 @@ import { useAuth } from './hooks/useAuth';
 
 function App() {
   const { user, isAuthenticated } = useAuth()
+  const [log,setLog]=useState(false)
+
+  useEffect(() => {
+  
+const userAdmin= JSON.parse(localStorage.getItem('user'));
+if(userAdmin)
+{
+if(userAdmin.role==="Admin")
+setLog(true)
+}
+}, [user])
+
   useEffect(() => {
     
     isAuthenticated()
@@ -40,7 +52,9 @@ function App() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/contact" element={<ContactPage />} />
-        <Route path="/products" element={user ?<ProductsPage /> :(<Home/>)} />
+        { log===true ?<Route path="/products" element={user.role ? <ProductsPage /> :(<Home/>) } /> :
+      
+      <Route path="/" element={ <Home/> }/>}
         <Route path="/orders" element={user ? <OrdersPage />:(<Home/>)} />
         <Route path="/product/add" element={<AddProductForm />} />
         <Route path="/product/update/:id" element={<UpdateProductForm />} />

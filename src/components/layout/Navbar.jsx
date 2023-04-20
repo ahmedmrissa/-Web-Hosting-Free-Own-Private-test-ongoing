@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect,useState } from 'react'
 import Logo from '../../logo.png';
 import { useNavigate } from 'react-router-dom';
 import Avatar from "../../assets/avatar.jpg"
@@ -14,14 +14,19 @@ function Navbar() {
   const { items } = useCart()
 
   let productCount = items.reduce((sum, product) => sum + product.quantity, 0);
+  const [log,setLog]=useState(false)
   const { user, logout, isAuthenticated } = useAuth()
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(user)
-    isAuthenticated()
-  }, [])
-
+   
+    const userAdmin= JSON.parse(localStorage.getItem('user'));
+    if(userAdmin)
+    {
+    if(userAdmin.role==="Admin")
+    setLog(true)
+    }
+    }, [user])
   return (
     <>
       <nav className="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-800">
@@ -41,7 +46,7 @@ function Navbar() {
                 <Link to="/" className="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Home</Link>
               </li>
               <li>
-                {!user ? (false):(
+              {log===false? (false):(
                 <button disabled={!user?true:false}  className="block py-2 pl-3 pr-4 text-gray-700 
                 border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent 
                 md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white 
