@@ -18,7 +18,7 @@ function Home() {
   const [search, setSearch] = useState(null);
   const [selection, setSelection] = useState(null)
   const [refresh, setRefresh] = useState(false)
-  const [selectionPrice, setSelectionPrice] = useState("")
+  const [selectionPrice, setSelectionPrice] = useState(null)
   
   useEffect(() => {
    
@@ -32,15 +32,37 @@ function Home() {
      setProd(tmp)
      
     }
-    
-    
-    SelectProduct()
-  
+    const priceSelect=async ()=>{
+      let tmp= [...products];
+      if(selectionPrice==='LowHigh'){
+        tmp=tmp.sort((a, b) => a.price - b.price);
+       
      
+        
+     
+      
+     setProd(tmp)
+    }
+    else{
+      tmp=tmp.sort((a, b) =>   b.price - a.price);
+       
+     console.log(tmp)
+        
+     
+      
+     setProd(tmp) 
+    }
+    }
+    if(selection){
+    SelectProduct()
+    }
+    if(selectionPrice){
+    priceSelect()
+     
+    }
     
     
-    
-  }, [selection,refresh])
+  }, [selection,refresh,selectionPrice])
 
 
   const searchProduct=async ()=>{
@@ -53,7 +75,8 @@ function Home() {
    setProd(tmp)
    
   }
-  if(selection===null && search===null){  
+  
+  if(selection===null && selectionPrice===null&& search===null){  
     return (
       
       <>
@@ -83,9 +106,8 @@ function Home() {
             setSelectionPrice(e.target.value);
           }
           }>
-            <option value="Phone" >Show me from Low to High  Price</option>
-            <option value="Smart Phone" >Show me from High to Low Price</option>
-            
+             <option value="LowHigh" >Show me from Low to High  Price</option>
+                <option value="HighLow" >Show me from High to Low Price</option>
            
         </select>
         </div>
@@ -168,8 +190,8 @@ function Home() {
                 setSelectionPrice(e.target.value);
               }
               }>
-                <option value="Phone" >Show me from Low to High  Price</option>
-                <option value="Smart Phone" >Show me from High to Low Price</option>
+                <option value="LowHigh" >Show me from Low to High  Price</option>
+                <option value="HighLow" >Show me from High to Low Price</option>
                 
                
             </select>
@@ -209,9 +231,9 @@ function Home() {
           
           <div className='flex flex-wrap self-center justify-center flex-grow gap-2 p-2 m-1 md:flex-row sm:flex-col'>
             
-           
+         
               {             
-           
+          
               prod.map(product=>(
                 <ProductCard key={product._id} 
                 id={product._id}
