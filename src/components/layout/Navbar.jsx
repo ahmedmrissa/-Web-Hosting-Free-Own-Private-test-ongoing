@@ -62,6 +62,16 @@ function Navbar() {
                 md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white 
                 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent 
                 dark:border-gray-700"
+                onClick={()=>navigate("/avatar")}
+                >Update My Information</button>)}
+              </li>
+              <li>
+                {!user ? (false):(
+                <button disabled={!user?true:false}  className="block py-2 pl-3 pr-4 text-gray-700 
+                border-b border-gray-100 hover:bg-gray-50 md:hover:bg-transparent 
+                md:border-0 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white 
+                dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent 
+                dark:border-gray-700"
                 onClick={()=>navigate("/orders")}
                 >Orders</button>)}
               </li>
@@ -83,36 +93,30 @@ function Navbar() {
 
               <li>
                 <div className='flex justify-center align-middle'>
-                  {!user ? (<button className='text-slate-800'
+                  {!user ? (<button type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+  <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  <span className='p-1 m-1 cursor-pointer'
                     onClick={() => {
                       navigate('/login')
                     }}
-                  >Login</button>) :
+                  >Login</span></button>) :
                     (<div className='flex flex-row justify-center align-middle'>
                       <span className='p-1 m-1'>{user.fullName}</span>
                       <img src={Avatar} alt='avatar' className='h-12 p-2 m-2' />
-                      <span className='p-1 m-1 cursor-pointer'
+                      <button type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+  <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  <span className='p-1 m-1 cursor-pointer'
                         onClick={() => {
                           logout();
                           navigate('/');
-                        }}>logout</span>
+                        }}>Logout</span>
+</button>
+                      
                     </div>)}
                 </div>
               </li>
-              <li>
-
-                <div className='flex justify-center align-middle'>
-                  {!user ? (<button className='text-slate-800'
-                    onClick={() => {
-                      navigate('/register')
-                    }}
-                  >Sign Up</button>) :
-                    (<div className='flex flex-row justify-center align-middle'>
-
-
-                    </div>)}
-                </div>
-              </li>
+             
+              
 
             </ul>
           </div>

@@ -125,7 +125,7 @@ function ProductsPage() {
           <option value="Smart Phone" >Smart Phone</option>
           <option value="Phone" >Phone</option>
           <option value="Tablet" >Tablet</option>
-          <option value="Tablet" >Laptop</option>
+          <option value="Laptop" >Laptop</option>
       </select>
       </div>
       

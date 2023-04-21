@@ -48,7 +48,7 @@ function UpdateProductForm() {
      if(data.status="success"){
            Swal.fire({
         title: 'Success',
-        text: "Successfully Udated",
+        text: "Successfully Updated",
         icon: 'success',
         confirmButtonText: 'Ok'
       })

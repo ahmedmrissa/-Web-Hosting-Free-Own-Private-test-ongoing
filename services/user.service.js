@@ -41,9 +41,23 @@ const getAllUsers = async ()=>{
   }
   return formatResponse('ERROR','Error Occured')
 }
-
+const getOneUser = async (id)=>{
+    const users = await User.find({_id:id});
+    if(users){
+      return formatResponse('SUCESS','All Users',users)
+    }
+    return formatResponse('ERROR','Error Occured')
+  }
+  const updateUser = async(id,fullName, email, password)=>{
+    const encryptedPassword = await bcrypt.hash(password, 10);
+    const oldUser = await Product.findOneAndUpdate({_id:id},{fullName,email,password:encryptedPassword});
+    return formatResponse('SUCCESS','Information Updated Successfully',oldUser);
+}
+  
 module.exports = {
     register,
     login,
-    getAllUsers
+    getAllUsers,
+    getOneUser,
+    updateUser
 }

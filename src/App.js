@@ -19,6 +19,7 @@ import Cart from "./components/cart/Cart"
 
 import OrdersPage from './pages/OrdersPage';
 import { useAuth } from './hooks/useAuth';
+import UpdateMyInformation from './pages/UpdateMyInformation';
 
 
 function App() {
@@ -56,6 +57,7 @@ setLog(true)
       
       <Route path="/" element={ <Home/> }/>}
         <Route path="/orders" element={user ? <OrdersPage />:(<Home/>)} />
+        <Route path="/avatar" element={user ? <UpdateMyInformation />:(<Home/>)} />
         <Route path="/product/add" element={<AddProductForm />} />
         <Route path="/product/update/:id" element={<UpdateProductForm />} />
         <Route path="/product/detail/:id" element={<ProductDetail />} />
