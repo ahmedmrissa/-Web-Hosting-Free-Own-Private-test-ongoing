@@ -15,7 +15,7 @@ function UpdateMyInformation() {
 const navigate=useNavigate();
     useEffect(() => {
         const getUserById = async (id) => {
-        await axios.get(`/user/one/${id}`)
+        await axios.get(`/user/one/${id}`,{headers:{'x-access-token':user.token}})
         .then( response =>response.data )
         .then(data => data.payload)
         .then(users => {
@@ -44,7 +44,7 @@ const navigate=useNavigate();
         }
        
     
-        await axios.put(`/user/update/${user._id}`,newUser)
+        await axios.put(`/user/update/${user._id}`,{headers:{'x-access-token':user.token}},newUser)
         .then(response=>response.data)
          .then(data=>{
          if(data.status="success"){
