@@ -2,7 +2,7 @@ const router=require('express').Router();
 const userService=require('../services/user.service');
 const formatResponse=require('../utilities/format.response')
 const authentication=require('../middlewares/authentication');
-const { productPhotoUpload } = require('../middlewares/multer')
+const { avatarUpload } = require('../middlewares/multer')
 const User = require('../models/user.model')
 require('dotenv').config()
 const {
@@ -45,7 +45,7 @@ router.get('/all', authentication,async (req,res)=>{
         res.json(formatResponse('ERROR','500 Error Server'))
     }
 })
-router.get('/one', authentication,async (req,res)=>{
+router.get('/one', verifyToken,async (req,res)=>{
     try {
         const result = await userService.getOneUser();
         res.json(result);
@@ -53,7 +53,7 @@ router.get('/one', authentication,async (req,res)=>{
         res.json(formatResponse('ERROR','500 Error Server'))
     }
 })
-router.put('/:id',verifyToken, async (req, res) => {
+router.put('update/:id',verifyToken, async (req, res) => {
     const id = req.params.id;
     const { fullName, email, password } = req.body;
     try {
@@ -63,12 +63,13 @@ router.put('/:id',verifyToken, async (req, res) => {
         res.json(formatResponse('ERROR', error.message))
     }
 })
-router.put('/upload/:id', async (req, res, next) => {
-    await productPhotoUpload(req, res, async (error) => {
+router.put('/upload/:id',verifyToken, async (req, res, next) => {
+    await avatarUpload(req, res, async (error) => {
         if (error) {
             res.status(500).json({ error: error.message })
         }
         try {
+            const id = req.params.id;
             const upLoadedPhoto = req.file;
 
             const path = upLoadedPhoto.fieldname + '-' + Date.now() + '.' + upLoadedPhoto.originalname.split('.')[upLoadedPhoto.originalname.split('.').length - 1]
@@ -83,7 +84,7 @@ router.put('/upload/:id', async (req, res, next) => {
            const rt=await getDownloadURL(snapshot.ref)         
 
 
-            const result = await User.findByIdAndUpdate(req.params.id, { avatar_url: rt })
+            const result = await User.findByIdAndUpdate(id, { avatar_url: rt })
             res.json(result)
         } catch (error) {
             console.log(error)
