@@ -45,7 +45,7 @@ router.get('/all', authentication,async (req,res)=>{
         res.json(formatResponse('ERROR','500 Error Server'))
     }
 })
-router.get('/one', verifyToken,async (req,res)=>{
+router.get('/one',async (req,res)=>{
     try {
         const result = await userService.getOneUser();
         res.json(result);
@@ -53,7 +53,7 @@ router.get('/one', verifyToken,async (req,res)=>{
         res.json(formatResponse('ERROR','500 Error Server'))
     }
 })
-router.put('update/:id',verifyToken, async (req, res) => {
+router.put('update/:id', async (req, res) => {
     const id = req.params.id;
     const { fullName, email, password } = req.body;
     try {
