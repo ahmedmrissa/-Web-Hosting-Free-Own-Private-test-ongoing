@@ -48,7 +48,7 @@ const getOneUser = async (id)=>{
     }
     return formatResponse('ERROR','Error Occured')
   }
-  const updateUser = async(id,fullName, email, password)=>{
+  const updateUser = async(id,{fullName, email, password})=>{
     const encryptedPassword = await bcrypt.hash(password, 10);
     const oldUser = await User.findOneAndUpdate({_id:id},{fullName,email,password:encryptedPassword});
     return formatResponse('SUCCESS','Information Updated Successfully',oldUser);

@@ -54,7 +54,7 @@ router.get('/one/:id',verifyToken,async (req,res)=>{
         res.json(formatResponse('ERROR','500 Error Server'))
     }
 })
-router.put('update/:id',verifyToken, async (req, res) => {
+router.put('/update/:id',verifyToken, async (req, res) => {
     const id = req.params.id;
     const { fullName, email, password } = req.body;
     try {
