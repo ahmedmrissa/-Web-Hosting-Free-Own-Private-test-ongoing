@@ -44,23 +44,31 @@ const navigate=useNavigate();
         }
        
     
-        await axios.put(`/user/update/${user._id}`,{headers:{'x-access-token':user.token}},newUser)
-        .then(response=>response.data)
-         .then(data=>{
-         if(data.status="success"){
-               Swal.fire({
-            title: 'Success',
-            text: "Successfully Updated",
-            icon: 'success',
-            confirmButtonText: 'Ok'
-          })
-        }else if(data.status="error"){
-          Swal.fire({
-            title: 'Error',
-            text: "Failed to Update the Information",
-            icon: 'error',
-            confirmButtonText: 'Ok'
-          })
+        await fetch(`https://myfirstweb-udeq.onrender.com/user/update/${user._id}`,{
+          method:"PUT",
+          headers:{
+            "Content-Type":"application/json",
+            'x-access-token': user.token
+          },
+          body:JSON.stringify(newUser)
+        })
+          
+        .then(data=>data.json())
+    .then(json=>{
+          if(json.Error){
+            Swal.fire({
+              title: 'Error!',
+              text: json.Error,
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            })
+          }else{
+            Swal.fire({
+              title: 'Information Update',
+              text: 'User Information succesfully Updated',
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            })
         }
           navigate("/")
          })
