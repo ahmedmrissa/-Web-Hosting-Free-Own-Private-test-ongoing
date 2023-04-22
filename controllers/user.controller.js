@@ -45,19 +45,20 @@ router.get('/all', authentication,async (req,res)=>{
         res.json(formatResponse('ERROR','500 Error Server'))
     }
 })
-router.get('/one',async (req,res)=>{
+router.get('/one/:id',verifyToken,async (req,res)=>{
+    const id = req.params.id;
     try {
-        const result = await userService.getOneUser();
+        const result = await userService.getOneUser(id);
         res.json(result);
     } catch (error) {
         res.json(formatResponse('ERROR','500 Error Server'))
     }
 })
-router.put('update/:id', async (req, res) => {
+router.put('update/:id',verifyToken, async (req, res) => {
     const id = req.params.id;
     const { fullName, email, password } = req.body;
     try {
-        const result = await productService.updateUser(id, { fullName, email, password })
+        const result = await userService.updateUser(id, { fullName, email, password })
         res.json(result)
     } catch (error) {
         res.json(formatResponse('ERROR', error.message))
