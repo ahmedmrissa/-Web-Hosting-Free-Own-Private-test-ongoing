@@ -21,13 +21,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(morgan('tiny'))
 app.use(morgan('tiny', { stream: stream }))
 
-
-      app.get('/*', function(req, res) {
-        res.sendFile(path.join(buildPath, 'index.html'), function(err) {
-          if (err) {
-            res.status(500).send(err)
-          }
-        })
+app.get('/', (req, res) => {
+        res.sendFile(path.join(buildPath, 'index.html'))
       })
 app.use('/user',userRouter);
 app.use('/product',productRouter)
