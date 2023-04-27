@@ -5,6 +5,7 @@ const rfs = require("rotating-file-stream");
 const userRouter=require('./controllers/user.controller');
 const productRouter=require('./controllers/product.controller');
 const orderRouter=require('./controllers/order.controller')
+const contactRouter=require('./controllers/contact.controller')
 
 const path = require('path')
 
@@ -27,6 +28,7 @@ app.get('/', (req, res) => {
 app.use('/user',userRouter);
 app.use('/product',productRouter)
 app.use('/order',orderRouter)
+app.use('/contact',contactRouter)
 app.use('/uploads', express.static('./uploads'))
 
 

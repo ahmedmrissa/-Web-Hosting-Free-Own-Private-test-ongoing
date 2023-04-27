@@ -21,3 +21,4 @@ GET /avatar? 404 145 - 2.021 ms
 GET /avatar? 404 145 - 2.272 ms
 GET /avatar 404 145 - 2.344 ms
 GET /avatar? 404 145 - 2.449 ms
+GET /contact 404 146 - 2.713 ms
