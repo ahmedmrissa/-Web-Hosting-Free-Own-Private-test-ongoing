@@ -52,7 +52,7 @@ function ContactPage() {
                         confirmButtonText: 'Ok'
                     })
                 }
-                navigate(`https://myfirstweb-udeq.onrender.com/upload/${id}`)
+                navigate(`/upload/${id}`)
             })
             .catch(error => {
                 Swal.fire({

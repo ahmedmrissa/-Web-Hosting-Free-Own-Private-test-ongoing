@@ -1,12 +1,12 @@
 import React, { useRef } from 'react'
 import { useState } from 'react'
 import axios from 'axios'
-
-function FileUploadContact({ id }) {
+import { useParams } from 'react-router-dom'
+function FileUploadContact() {
     const [preview, setPreview] = useState("")
     const [file, setFile] = useState({})
     const [readyToUpload, setReadyToUpload] = useState(false)
-  
+const id=useParams()
 
     const handleChange = (e) => {
 
