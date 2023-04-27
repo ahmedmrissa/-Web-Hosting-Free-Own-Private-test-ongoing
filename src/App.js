@@ -20,7 +20,7 @@ import Cart from "./components/cart/Cart"
 import OrdersPage from './pages/OrdersPage';
 import { useAuth } from './hooks/useAuth';
 import UpdateMyInformation from './pages/UpdateMyInformation';
-
+import UploadPage from './pages/UploadPage';
 
 function App() {
   const { user, isAuthenticated } = useAuth()
@@ -53,6 +53,7 @@ setLog(true)
         <Route path="/about" element={<AboutPage />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/upload" element={<UploadPage />} />
         { log===true ?<Route path="/products" element={user.role ? <ProductsPage /> :(<Home/>) } /> :
       
       <Route path="/" element={ <Home/> }/>}

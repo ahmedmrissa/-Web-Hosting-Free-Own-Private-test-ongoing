@@ -3,6 +3,7 @@ const paginatedResult = require('../middlewares/paginated-result');
 const { validateRequestSchema } = require('../middlewares/validate.request.schema');
 const contactService = require('../services/contact.service');
 const formatResponse = require('../utilities/format.response');
+const Contact= require('../models/contact.model')
 
 const { productPhotoUpload } = require('../middlewares/multer')
 
@@ -17,7 +18,15 @@ const {
 const storage = require("../middlewares/firebase");
 
 
-
+router.post('/add', validateRequestSchema, async (req, res) => {
+    const { email, subject, message } = req.body;
+    try {
+        const result = await contactService.addTicket({ email, subject, message  });
+        res.json(result)
+    } catch (error) {
+        res.json(formatResponse('ERROR', error.message))
+    }
+})
 
 
 router.get('/all', paginatedResult(require('../models/contact.model')), async (req, res) => {
@@ -41,8 +50,7 @@ router.delete('/:id', async (req, res) => {
 })
 
 // upload product photo
-router.post('/add/:id',validateRequestSchema ,async (req, res, next) => {
-    const { email, subject, message} = req.body;
+router.put('/upload/:id', async (req, res, next) => {
     await productPhotoUpload(req, res, async (error) => {
         if (error) {
             res.status(500).json({ error: error.message })
@@ -52,7 +60,7 @@ router.post('/add/:id',validateRequestSchema ,async (req, res, next) => {
 
             const path = upLoadedPhoto.fieldname + '-' + Date.now() + '.' + upLoadedPhoto.originalname.split('.')[upLoadedPhoto.originalname.split('.').length - 1]
             const storageRef = ref(storage);
-            const imgRef = ref(storageRef, 'tickets');
+            const imgRef = ref(storageRef, 'uploads');
             const imageRef = ref(imgRef, path);
             
                 
@@ -62,7 +70,7 @@ router.post('/add/:id',validateRequestSchema ,async (req, res, next) => {
            const rt=await getDownloadURL(snapshot.ref)         
 
 
-           const result = await contactService.addTicket({ email, subject, message, file_upload:rt || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4PcwBzqNOORvFno64P75vIip-xLUUKOy_yw&usqp=CAU' });
+            const result = await Contact.findByIdAndUpdate(req.params.id, { file_upload: rt })
             res.json(result)
         } catch (error) {
             console.log(error)
@@ -71,5 +79,4 @@ router.post('/add/:id',validateRequestSchema ,async (req, res, next) => {
     })
 }
 )
-
 module.exports = router;
